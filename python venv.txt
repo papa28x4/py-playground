@@ -1,0 +1,60 @@
+python -m venv logical-project-separation
+
+source logical-project-separation/bin/activate (linux)
+
+windows: you cd into venv folder i.e logical-project-separation
+
+then type Scripts\activate
+
+you should see that environment in parenthesis on your command prompt. This indicates you are now working in that environment
+
+to comeout of the environment simply type deactivate
+
+pip install django
+
+pip list | grep boto3
+
+
+pip install django==2.0.7 (To install a specific django version)
+
+pip freeze
+
+
+One may generate a requirements.txt via:
+pip freeze > requirements.txt
+
+A user can use this requirements.txt file to install all the dependencies. For instance:
+pip install -r requirements.txt
+
+My preferred method of generating a requirements file is:
+
+pip list --format=freeze > requirements.txt
+This method keeps just the package names and package versions without potentially linking to local file paths which 'pip freeze' alone will sometimes give me. Local file paths in a requirements file make your codebase harder to use for other users and some developers don't know how to fix this so I prefer this method for ease of adoptability.
+
+
+
+
+Pip Freeze vs. Pipreqs
+I’m not just here with problems, I also have a solution. I found a library called pipreqs, which fixes all the above issues and is very user-friendly.
+
+ 
+
+Why Is Pipreqs Better?
+Here are reasons why switching to pipreqs is a better idea than using pip freeze for the requirements file.
+
+ 
+
+1. “Pip freeze only saves the packages that were installed with pip install in the virtual environment,” according to the pipreqs documentation in PyPi.
+pip freeze only installs those packages which were installed using the pip installcommand. However, pip is not the only python package manager. We can also use Chocolatey, Conda and setuptools, etc., which are not supported by pip freeze. To use them, we’d have to write them manually in the requirements.txt file. pipreqs, on the other hand, has no such restriction.
+
+ 
+
+2. pip freeze saves all packages and dependencies in the environment including those that you don’t use in your current project
+This is the biggest drawback of pip freeze. In a project, the dependencies constantly change and have to be added, updated and deleted. However, it’s a monumental task to achieve this using pip freeze because it dumps whatever is already installed in the environment. pipreqs, on the other hand, only puts those libraries in the requirements file which have been used in the project through imports. This is extremely powerful when you are trying to change the requirements file later.
+
+ 
+
+3. pipreqs is extremely easy to use.
+To install the library, run the following command 
+
+$ pip install pipreqs
